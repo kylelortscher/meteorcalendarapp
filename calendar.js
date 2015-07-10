@@ -15,6 +15,12 @@ if (Meteor.isClient) {
         var calEvents = CalEvent.find({}, {reactive:false}).fetch();
         callback(calEvents);
       }
+    }).data().fullCalendar;
+    Deps.autorun(function(){
+      CalEvent.find().fetch();
+      if(calendar){
+        calendar.refetchEvents();
+      }
     })
   }
 }
