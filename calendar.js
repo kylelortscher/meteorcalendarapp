@@ -8,8 +8,12 @@ if (Meteor.isClient) {
         calendarEvent.start = date;
         calendarEvent.end = date;
         calendarEvent.title = 'New Event';
-        calendarEvent.owner = Meteor.userId;
+        calendarEvent.owner = Meteor.userId();
         Meteor.call('saveCalEvent', calendarEvent);
+      },
+      events:function(start,end,callback){
+        var calEvents = CalEvent.find({}, {reactive:false}).fetch();
+        callback(calEvents);
       }
     })
   }
